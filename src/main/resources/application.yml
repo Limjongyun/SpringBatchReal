@@ -1,0 +1,196 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  h2.console.enabled: true
+  datasource:
+    driver-class-name: net.sf.log4jdbc.DriverSpy
+    url: jdbc:log4jdbc:mariadb://172.28.34.200:3306/uhrmsdb?autoReconnect=true&characterEncoding=UTF-8
+    username: uhrmsuser
+    password: itm6700
+    hikari:
+      maximumPoolSize: 5
+      leakDetectionThreshold: 240000
+      connection-test-query: SELECT 1
+  cache:
+    #    type: none
+    jcache.config: classpath:ehcache.xml
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  batch:
+    jdbc:
+      initialize-schema: never
+  mvc:
+    favicon:
+      enable: false
+  mail:
+    transport:
+      protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+      smtp-starttls-enable: true
+      username: AKIAV42TW73K6SN67SDY
+      password: BHboScpGBF6J75ZnuCcGp/hfmOpWxVAaoV7EkHkAOuFw
+      host: email-smtp.ap-northeast-2.amazonaws.com
+      port: 587
+      sender-mail: ENC(iyKLfr0wpMPQk9AxLctsXsBbQdvyLmgd)
+      sender-name: U.STRA HR
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+
+framework:
+  view:
+    suffix: /view
+  security:
+    jwt:
+      secretkey: gsitm6700
+      valid-minute: 1440
+      tokenkey: X-AUTH-CTOKEN
+      active-db-manage: true
+  login:
+    default-uri: /login
+    success-uri: /
+    fail-uri: /login
+    id-param: username
+    used-config-key: MultiLoginDeviceCount
+    default-config-value: 0
+    rsa-token-key: RSA-TOKEN
+  logout:
+    success-uri: /loggedout
+  log:
+    active:
+      login: true
+      access: true
+      filter-after: false
+      filter-before: false
+
+#mybatis:
+#  config-location: classpath:sqlmap/sqlmap-config.xml
+#  mapper-locations: classpath*:sqlmap/mappers/**/*.xml
+#  type-aliases-package: hr
+
+gsitm:
+  file:
+    storage:
+      allowed-extensions: hwp, doc, docx, ppt, pptx, xls, xlsx, jpg, jpeg, gif, png, txt, zip, pdf, egg, tif, tiff, bmp
+    custom-image-path: 'C:/'
+  file-size:
+    list: system|20048576,pgmg|20048576,emp|20048576,payacct|20048576,help|20048576
+  approval:
+    api-url: http://localhost:8083
+    sap-api-url: http://localhost:8083
+    exid-api-uri: /api/gw/sampleexid
+    approval-api-uri: /api/gw/sample
+    makestat-api-uri: /api/sap/FI0080
+    cnclstat-api-uri: /api/sap/FI0240
+    statinfo-api-uri: /api/sap/FI0300
+    plain-key: IFUSER
+    plain-value: P@$$w0rd
+    send-server-id: ADMB551220022
+    receive-server-id: DOCB55122001
+    main-type: MOS0035
+    sub-type: amiso35
+    sender-system-name: EHR??
+  system:
+    system-url: http://localhost:8083
+    mailsystem-url : https://dev2hrm.ustracloud.com
+    # ubiform-url: http://172.28.31.50:8080
+    ubiform-url: https://devhrm.ustracloud.com:8443
+    addr-url: http://www.juso.go.kr
+    addr-uri: /addrlink/addrLinkApi.do
+    talk-link-uri: dev2hrm.ustracloud.com
+  ssoutils:
+    keyString: ENC(hq5RKw4pLl+YSC6ZEte+tfSwgkrNopmtOVll/oyYkpE=)
+    initialVectorParam: ENC(eNIToYvQyvI9LCOZ2J/ANTLQZ9MazD8c+QKbNl6yph4=)
+  batch:
+    daliy-prom: 0 0 8 * * *
+    daily-cron: 0 0 7 * * * # ?? ?? 7??? ??????
+    first-month-cron: 0 0 1 1 1 *
+    email-cron: 0 0/10 10-17 * * MON-FRI
+    update-assummary-cron: 0 0 1 * * * # ?? ?? 1??? ????????? update
+    nynexmo-caps-itf-cron: 0 0 6 * * * # ????? ??
+    nynexmo-food-itf-cron: 0 0 5 * * * # ????? ???? ??
+    nynexmo-schedule-itf-cron: 0 0 5 * * * # ????? ?? ???? ??
+    nynexmo-plan-itf-cron: 0 0 5 * * * # ????? ????? ??
+    nynexmo-month-itf-cron: 0 0 5 * * * # ????? ????? ??
+    nynexmo-holy-itf-cron: 0 0 5 * * * # ????? ????? ??
+    nynexmo-vaca-itf-cron: 0 0 5 * * * # ????? ?????? ??
+    daily-prom-nyn: 0 0 8 * * * # 1??? ???? ??? ?? ? ?? ??
+    nynexmo-schedule-api-cron: 0 0 23 1/10 12 * # ????? ??????? ??
+    nynexmo-schedule-caps-cron: 0 0 0/1 * * * # ???????? ?????? ?? ??
+    nynexmo-schedule-psmstr-cron: 0 0 5 * * * # ????? ?????? ?? ??
+    nynexmo-schedule-holy-cron: 0 0 4 * * * # ??? ????? ?????? ?? ??
+    nynexmo-schedule-create-cron: 0 0 6,18 * * * # ??? ??? ?? ??
+    dreamline-secom-itf: 0 0 5 0 0 0 # ???? ???? ?? 5?
+
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-patterns: "*"
+        allowed-methods: "*"
+        allow-credentials: true
+        max-age: 3600
+        allowed-headers: "Origin, X-Requested-With, Content-Type, Accept, Key, Authorization"
+
+logging:
+  level:
+    web: OFF
+    jdbc.sqlonly: OFF
+    jdbc.sqltiming: DEBUG
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.resultsettable: OFF
+    jdbc.connection : OFF
+    org.hibernate.SQL: OFF
+    org.springframework.web: OFF
+    org.springframework.boot.autoconfigure: INFO
+    com.zaxxer.hikari.HikariDataSource: ERROR
+    org.springframework.jdbc.core.JdbcTemplate: OFF
+ # config: classpath:log4j2.xml
+
+sha:
+  saltkey: itsm@6700
+
+aes:
+  key: bc1cn95m1mylfm1fgo91bn10cm19mdff
+
+encrypt:
+  lion:
+    key: U2FsdGVkX19FNY+k7wOX/EUCT+ykMITvGkDh/o1M+Jc=
+
+empty:
+  page-uri: /empty
+
+mfa:
+  mfa-enabled: true
+  totp-uri: /otp
+  sms-uri: /sms
+  config-code: 10
+  used-config-key: MultifactAuth
+  type-config-key: MultifactType
+  except-ip-config-key: ExceptIp
+
+server:
+  port: 8083
+  server-header: uhrms was
+  tomcat:
+    maxParameterCount: -1
+
+tomcat:
+  ajp:
+    port: 8009
+    enabled: true
+    remoteauthentication: true
+
+kakao:
+  maps:
+    app-key: ENC(LGAQXPVgQ26KJ7WsCLDr8xCCriRMtVUFso6nwKjUaFtzXvOW8FRwcHqy/aPAdj0J)
